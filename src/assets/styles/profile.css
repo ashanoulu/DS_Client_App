@@ -1,0 +1,114 @@
+
+
+.proImage{
+
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+.pbody{
+	padding-bottom: 5%;
+}
+
+.tttt{
+	padding-top:50px;
+	padding-left: 6%;
+}
+
+.pDetails{
+	padding-top:20px;
+	padding-bottom: 20px;
+
+}
+h4{
+	padding-bottom: 10px;
+
+}
+
+.form-groups{
+	padding-bottom: 15px;
+	margin-left: 30%;
+
+}
+.form-controls{
+
+	width: 150%;
+
+}
+.text{
+	float: left;
+
+}
+.text-centers{
+	padding-left: 10%;
+}
+
+
+.container-fluid{
+	margin-top: 9%;
+}
+
+
+.btngroup{
+	margin-left: 31%;
+}
+
+.text-lefts{
+	float: left;
+}
+.text-rights {
+	float: left;
+
+}
+.card-title ,.card-body,.h3{
+
+}
+
+@media (max-width: 575px) {
+
+	.pbody{
+		padding-bottom: 185%;
+	}
+
+}
+
+@media (max-width: 767px) {
+
+	.form-controls{
+
+		width: 40%;
+
+	}
+	.hide{
+		display: none;
+	}
+
+	Footer{
+		float: right;
+	}
+	.text-rights{
+		margin-bottom: 4px;
+
+
+	}
+	.btngroup{
+		display:flex;
+	}
+
+	.text-centers{
+		margin-right: 25px;
+	}
+
+}
+
+@media (max-width: 991px){
+	h4,.h3{
+		font-size: 1.2rem;
+	}
+	.card-title ,.card-body,.text ,.form-controls {
+		font-size: 0.7rem;
+	}
+
+}

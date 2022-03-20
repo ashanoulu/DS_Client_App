@@ -1,0 +1,95 @@
+
+.spinner{
+	display: block;
+  margin: auto;
+}
+.logo{
+	padding-top: 100px;
+  display: block;
+  margin: auto;
+  width: 30%;
+}
+.waiting{
+    display: inline-block;
+}
+/*.rank{*/
+
+/*    margin-top: 20%;*/
+/*}*/
+
+.cercle h1{
+    padding-left: 36px;
+    padding-top: 20px;
+}
+
+.cercle {
+    width:180px;
+    height: 180px;
+    display: flex;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 100%;
+    background:mediumorchid;
+    margin-left: 44%;
+    margin-top: 10%;
+}
+
+
+
+.resutbox{
+    display: inline;
+    padding-right: 20%;
+}
+
+.reviewbtn{
+
+    margin-left: 30%;
+}
+
+.boxone{
+    float: left;
+    padding-left: 10%;
+    border-right: 2px solid yellow;
+    padding-top: 7px;
+}
+.boxtwo{
+    float: left;
+    padding-left: 9px;
+    font-size: 1.5rem;
+    padding-bottom: 10px;
+    /*padding-left: 10%;*/
+}
+
+.box2{
+
+margin-left: 50%;
+
+
+}
+
+@media (max-width: 1199.98px){
+
+    .resutbox{
+        display: inline-block;
+        /*padding-right: 20%;*/
+    }
+    .boxone{
+        display: none;
+    }
+    .box1{
+        padding-right: 5%;
+    }
+    .box2{
+        font-size: 0.2rem;
+
+
+    }
+
+
+}
+
+@media (max-width: 767px) {
+    .reviewbtn{
+        font-size: 12px;
+    }
+}
