@@ -1,0 +1,12 @@
+version: '3.2'
+
+services:
+  jf_frontend:
+    container_name: ds_client
+    build: .
+    ports:
+      - 8080:8080
+networks:
+  default:
+    external:
+      name: ds_client
