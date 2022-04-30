@@ -107,7 +107,7 @@ export default {
       }).then(response => {
         if (response.data) {
           localStorage.setItem('token', response.data.token)
-          this.$router.push({ path: '/AddMenu' })
+          this.$router.push({ path: '/AddMenu', query: { type: 'new' } })
         }
       }).catch(e => {
         alert(e)

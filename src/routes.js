@@ -1,6 +1,8 @@
 import Login_pwp from "./components/Login_pwp";
 import AddMenu from "./components/AddMenu";
 import ViewMenu from "./components/ViewMenu";
+import ViewOrder from "./components/ViewOrder";
+import AddOrder from "./components/AddOrder";
 
 export const routes = [
     {
@@ -20,6 +22,18 @@ export const routes = [
         name: 'sign-up',
         meta: {layout: 'sign-up'},
         component: ViewMenu
+    },
+    {
+        path: '/ViewOrder',
+        name: 'sign-up',
+        meta: {layout: 'sign-up'},
+        component: ViewOrder
+    },
+    {
+        path: '/AddOrder',
+        name: 'sign-up',
+        meta: {layout: 'sign-up'},
+        component: AddOrder
     },
     // {
     //     path: '/sign-in',

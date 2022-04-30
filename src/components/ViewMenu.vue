@@ -25,12 +25,16 @@
                       <th>Description</th>
                       <th>Price</th>
                       <th>Restaurant Name</th>
+                      <th></th>
+                      <th></th>
                     </tr>
                     <tr v-for="menu in menus" :key="menu.id">
                       <td>{{menu.name}}</td>
                       <td>{{menu.description}}</td>
                       <td>{{menu.price}}</td>
                       <td>{{menu.restaurant_name}}</td>
+                      <td><input type="button" @click="editData(menu.id)" value="Edit"></td>
+                      <td><input type="button" @click="deleteData" value="Delete"></td>
                     </tr>
                   </table>
                 </div>
@@ -59,6 +63,9 @@ export default {
       this.axios.get('/api/api/menu/list/3a9e5c1a-acdb-450c-a85d-dfcaface1976', {headers: { 'x-access-token' : localStorage.getItem('token')}})
       .then(response => this.menus = response.data.menus)
       .catch(e => alert(e))
+    },
+    editData(id){
+      this.$router.push({ path: '/AddMenu', query: { type: 'edit', id: id } })
     }
   },
 }

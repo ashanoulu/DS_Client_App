@@ -92,24 +92,60 @@ export default {
       description: '',
       name: '',
       price: '',
-      status: ''
+      status: '',
+      type: '',
+      id: ''
+    }
+  },
+  mounted() {
+    this.type = this.$route.query.type
+
+    if (this.type == 'edit') {
+      this.id = this.$route.query.id
+
+      this.axios.get('/api/api/menu/get/' + this.id).then(response => {
+        if (response.data) {
+          let data = response.data
+          this.name= data.name
+          this.description= data.description
+          this.price= data.price
+          this.status= data.status
+          this.restaurant_id= '3a9e5c1a-acdb-450c-a85d-dfcaface1976'
+        }
+      })
     }
   },
   methods: {
     submitMenu() {
-      this.axios.post('/api/api/menu/new', {
-        name: this.name,
-        description: this.description,
-        price: this.price,
-        status: this.status,
-        restaurant_id: '3a9e5c1a-acdb-450c-a85d-dfcaface1976'
-      }).then(response => {
-        alert(response.data.message)
-        this.name = '',
-        this.description = '',
-        this.price = '',
-        this.status = ''
-      }).catch(e => alert(e))
+      if (this.type == 'edit') {
+        this.axios.put('/api/api/menu/update', {
+          name: this.name,
+          description: this.description,
+          price: this.price,
+          status: this.status,
+          restaurant_id: '3a9e5c1a-acdb-450c-a85d-dfcaface1976'
+        }).then(response => {
+          alert(response.data.message)
+          this.name = ''
+          this.description = ''
+          this.price = ''
+          this.status = ''
+        }).catch(e => alert(e))
+      } else {
+        this.axios.post('/api/api/menu/new', {
+          name: this.name,
+          description: this.description,
+          price: this.price,
+          status: this.status,
+          restaurant_id: '3a9e5c1a-acdb-450c-a85d-dfcaface1976'
+        }).then(response => {
+          alert(response.data.message)
+          this.name = ''
+          this.description = ''
+          this.price = ''
+          this.status = ''
+        }).catch(e => alert(e))
+      }
     }
   }
 }

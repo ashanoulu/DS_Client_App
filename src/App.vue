@@ -1,21 +1,17 @@
 <template>
     <div id="app">
-      
-            <router-view></router-view>
-       
+        <Nav></Nav>
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
-    // import HelloWorld from './components/HelloWorld.vue'
-    // import Register from "./components/Register";
+    import Nav from "./components/Nav";
     export default {
         name: 'App',
         components: {
-            // Register,
-            // HelloWorld
+            Nav
         }
-
     }
 </script>
 
