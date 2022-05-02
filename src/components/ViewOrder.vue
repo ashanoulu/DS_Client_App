@@ -8,10 +8,10 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-6">
-                                    <a href="http://localhost:8080/AddMenu"  class="active" id="login-form-link">Add Menu</a>
+                                    <a href="http://localhost:8080/AddOrder"  class="active" id="login-form-link">Add Order</a>
                                 </div>
                                 <div class="col-xs-6">
-                                    <a href="http://localhost:8080/ViewMenu" id="register-form-link">View Menu</a>
+                                    <a href="http://localhost:8080/ViewOrder" id="register-form-link">View Order</a>
                                 </div>
                             </div>
                             <hr>
@@ -21,20 +21,24 @@
                                 <div class="col-lg-12">
                                     <table>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Description</th>
-                                            <th>Price</th>
+                                            <th>Menu</th>
+                                            <th>Menu Description</th>
+<!--                                            <th>Description</th>-->
+                                            <th>QTY</th>
                                             <th>Restaurant Name</th>
-                                            <th>User Name</th>
+                                            <th>Restaurant Contact</th>
+                                            <th>Restaurant Address</th>
+<!--                                            <th>User Name</th>-->
                                             <th></th>
                                             <th></th>
                                         </tr>
                                         <tr v-for="order in orders" :key="order.id">
-                                            <td>{{order.name}}</td>
-                                            <td>{{order.description}}</td>
-                                            <td>{{order.price}}</td>
+                                            <td>{{order.menu_name}}</td>
+                                            <td>{{order.menu_description}}</td>
+                                            <td>{{order.qty}}</td>
                                             <td>{{order.restaurant_name}}</td>
-                                            <td>{{order.user_name}}</td>
+                                            <td>{{order.restaurant_contact_no}}</td>
+                                            <td>{{order.restaurant_address}}</td>
                                             <td><input type="button" @click="editData(order.id)" value="Edit"></td>
                                             <td><input type="button" @click="deleteData(order.id)" value="Delete"></td>
                                         </tr>
@@ -72,9 +76,9 @@
             deleteData(id){
                 this.axios.delete('/api/api/order/delete/' + id, {headers: { 'x-access-token' : localStorage.getItem('token')}})
                     .then(response => {
-                        if (response.data) {
-                            alert("Successfully Deleted")
-                        }
+                      alert('Successfully Deleted!')
+                      this.getOrders()
+                        console.log(response)
                     })
                     .catch(e => alert(e))
             }

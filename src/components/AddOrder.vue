@@ -8,7 +8,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-6">
-                                    <a href="http://localhost:8080/AddMenu"  class="active" id="login-form-link">Add Order</a>
+                                    <a href="http://localhost:8080/AddOrder"  class="active" id="login-form-link">Add Order</a>
                                 </div>
                                 <div class="col-xs-6">
                                     <a href="http://localhost:8080/ViewOrder" id="register-form-link">View Order</a>
@@ -21,13 +21,13 @@
                                 <div class="col-lg-12">
                                     <form id="login-form" role="form" style="display: block;">
                                         <div class="form-group">
-                                            <select v-model="restaurant" name="Restaurant" id="restaurant">
-                                                <option v-for="rest in restaurantList" :value="rest.id">{{rest.name}}</option>
+                                            <select v-model="restaurant" name="Restaurant" id="restaurant" @change="getmenus(restaurant)">
+                                                <option v-for="rest in restaurantList" :value="rest.id" :key="rest.id">{{rest.name}}</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <select v-model="menu" name="Menu" id="menu">
-                                                <option v-for="menu in menuList" :value="menu.id">{{menu.name}}</option>
+                                                <option v-for="menu in menuList" :value="menu.id" :key="menu.id">{{menu.name}}</option>
                                             </select>
                                         </div>
 <!--                                        <div class="form-group">-->
@@ -37,10 +37,10 @@
 <!--                                            <input v-model="price"  name="password" id="price" tabindex="2" class="form-control" placeholder="Price">-->
 <!--                                        </div>-->
                                         <div class="form-group">
-                                            <input v-model="status" type="text"  id="status" tabindex="2" class="form-control" placeholder="Status">
+                                            <input v-model="status" type="number"  id="status" tabindex="2" class="form-control" placeholder="Status">
                                         </div>
                                         <div class="form-group">
-                                            <input v-model="QTY" type="text"  id="qty" tabindex="2" class="form-control" placeholder="QTY">
+                                            <input v-model="QTY" type="number"  id="qty" tabindex="2" class="form-control" placeholder="QTY">
                                         </div>
                                         <!--                    <div class="form-group text-center">-->
                                         <!--                      <input type="checkbox" tabindex="3" class="" name="remember" id="remember">-->
@@ -49,7 +49,7 @@
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-sm-6 col-sm-offset-3">
-                                                    <input type="submit" @click.prevent="submitMenu" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Add menu">
+                                                    <input type="submit" @click.prevent="submitMenu" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Add Order">
                                                 </div>
                                             </div>
                                         </div>
@@ -117,57 +117,63 @@
             if (this.type == 'edit') {
                 this.id = this.$route.query.id
 
+              console.log("dasdasdasd0"+ this.id)
                 this.axios.get('/api/api/order/get/' + this.id).then(response => {
                     if (response.data) {
                         let data = response.data
                         this.restaurant= data.restaurant_id
                         this.menu= data.menu_id
-                        this.QTY= data.qty
+                        this.QTY= data.quantity
                         this.status= data.status
+                      this.getmenus(this.restaurant)
                     }
                 })
+
             }
 
             this.getInitialData()
         },
         methods: {
             getInitialData() {
-                this.axios.get('/api/api/menu/list/3a9e5c1a-acdb-450c-a85d-dfcaface1976').then(response => {
-                    if (response.data) {
-                        this.menuList = response.data.menus
-                    }
-                })
-
                 this.axios.get('/api/api/restaurant/list/').then(response => {
                     if (response.data) {
-                        this.restaurantList = response.data.restaurants
+                        this.restaurantList = response.data.restaurant_items
                     }
                 })
             },
+
+          getmenus(id){
+            this.axios.get('/api/api/menu/list/' + id).then(response => {
+              if (response.data) {
+                this.menuList = response.data.menus
+              }
+            })
+          },
             submitMenu() {
                 if (this.type == 'edit') {
-                    this.axios.put('/api/api/order/update', {
-                        user_id: '3a9e5c1a-acdb-450c-a85d-dfcaface1976',
+                    this.axios.put('/api/api/oder/update/' + this.id, {
+                        user_id: localStorage.getItem('user_id'),
                         restaurant_id: this.restaurant,
                         menu_id: this.menu,
                         status: this.status,
                         qty: this.QTY
                     }).then(response => {
-                        alert(response.data.message)
+                        alert(response.data)
                         this.restaurant = ''
                         this.menu = ''
                         this.QTY = ''
                         this.status = ''
                     }).catch(e => alert(e))
                 } else {
-                    this.axios.post('/api/api/menu/new', {
-                        user_id: '3a9e5c1a-acdb-450c-a85d-dfcaface1976',
+                    this.axios.post('/api/api/order/new', {
+                        user_id: localStorage.getItem('user_id'),
                         restaurant_id: this.restaurant,
                         menu_id: this.menu,
                         status: this.status,
                         qty: this.QTY
                     }).then(response => {
-                        alert(response.data.message)
+                        if (response.data)
+                        alert('Successfully added')
                         this.restaurant = ''
                         this.menu = ''
                         this.QTY = ''

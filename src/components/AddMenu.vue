@@ -118,14 +118,14 @@ export default {
   methods: {
     submitMenu() {
       if (this.type == 'edit') {
-        this.axios.put('/api/api/menu/update', {
+        this.axios.put('/api/api/menu/update/' + this.id, {
           name: this.name,
           description: this.description,
           price: this.price,
           status: this.status,
           restaurant_id: '3a9e5c1a-acdb-450c-a85d-dfcaface1976'
         }).then(response => {
-          alert(response.data.message)
+          alert(response.data)
           this.name = ''
           this.description = ''
           this.price = ''

@@ -107,6 +107,7 @@ export default {
       }).then(response => {
         if (response.data) {
           localStorage.setItem('token', response.data.token)
+          localStorage.setItem('user_id', response.data.user_id)
           this.$router.push({ path: '/AddMenu', query: { type: 'new' } })
         }
       }).catch(e => {

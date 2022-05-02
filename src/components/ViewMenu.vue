@@ -34,7 +34,7 @@
                       <td>{{menu.price}}</td>
                       <td>{{menu.restaurant_name}}</td>
                       <td><input type="button" @click="editData(menu.id)" value="Edit"></td>
-                      <td><input type="button" @click="deleteData" value="Delete"></td>
+                      <td><input type="button" @click="deleteMenu(menu.id)" value="Delete"></td>
                     </tr>
                   </table>
                 </div>
@@ -66,6 +66,15 @@ export default {
     },
     editData(id){
       this.$router.push({ path: '/AddMenu', query: { type: 'edit', id: id } })
+    },
+    deleteMenu(id) {
+      this.axios.delete('/api/api/menu/delete/' + id).then(response => {
+        if (response){
+          alert('Deleted successfully')
+          this.getMenus()
+        }
+
+      })
     }
   },
 }
