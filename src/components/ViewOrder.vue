@@ -39,8 +39,8 @@
                                             <td>{{order.restaurant_name}}</td>
                                             <td>{{order.restaurant_contact_no}}</td>
                                             <td>{{order.restaurant_address}}</td>
-                                            <td><input type="button" @click="editData(order.id)" value="Edit"></td>
-                                            <td><input type="button" @click="deleteData(order.id)" value="Delete"></td>
+                                            <td><input type="button" @click="editData(order.restaurant_id, order.id)" value="Edit"></td>
+                                            <td><input type="button" @click="deleteData(order.restaurant_id, order.id)" value="Delete"></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -66,15 +66,15 @@
         },
         methods: {
             getOrders(){
-                this.axios.get('/api/api/order/list/3a9e5c1a-acdb-450c-a85d-dfcaface1976', {headers: { 'x-access-token' : localStorage.getItem('token')}})
+                this.axios.get('/api/api/order/3a9e5c1a-acdb-450c-a85d-dfcaface1976', {headers: { 'x-access-token' : localStorage.getItem('token')}})
                     .then(response => this.orders = response.data.orders)
                     .catch(e => alert(e))
             },
-            editData(id){
-                this.$router.push({ path: '/AddOrder', query: { type: 'edit', id: id } })
+            editData(restaurant_id, id){
+                this.$router.push({ path: '/AddOrder', query: { type: 'edit', id: id, restaurant_id: restaurant_id } })
             },
-            deleteData(id){
-                this.axios.delete('/api/api/order/delete/' + id, {headers: { 'x-access-token' : localStorage.getItem('token')}})
+            deleteData(restaurant_id, id){
+                this.axios.delete('/api/api/order/' + restaurant_id + '/' + id, {headers: { 'x-access-token' : localStorage.getItem('token')}})
                     .then(response => {
                       alert('Successfully Deleted!')
                       this.getOrders()

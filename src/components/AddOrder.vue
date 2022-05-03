@@ -37,7 +37,7 @@
 <!--                                            <input v-model="price"  name="password" id="price" tabindex="2" class="form-control" placeholder="Price">-->
 <!--                                        </div>-->
                                         <div class="form-group">
-                                            <input v-model="status" type="number"  id="status" tabindex="2" class="form-control" placeholder="Status">
+                                            <input v-model="status" type="text"  id="status" tabindex="2" class="form-control" placeholder="Status">
                                         </div>
                                         <div class="form-group">
                                             <input v-model="QTY" type="number"  id="qty" tabindex="2" class="form-control" placeholder="QTY">
@@ -108,7 +108,8 @@
                 id: '',
                 QTY:'',
                 restaurantList: [],
-                menuList: []
+                menuList: [],
+              restaurant_id:''
             }
         },
         mounted() {
@@ -116,9 +117,10 @@
 
             if (this.type == 'edit') {
                 this.id = this.$route.query.id
+                this.restaurant_id = this.$route.query.restaurant_id
 
-              console.log("dasdasdasd0"+ this.id)
-                this.axios.get('/api/api/order/get/' + this.id).then(response => {
+              console.log(this.id)
+                this.axios.get('/api/api/order/' + this.restaurant_id + '/' + this.id).then(response => {
                     if (response.data) {
                         let data = response.data
                         this.restaurant= data.restaurant_id
@@ -135,7 +137,7 @@
         },
         methods: {
             getInitialData() {
-                this.axios.get('/api/api/restaurant/list/').then(response => {
+                this.axios.get('/api/api/restaurant/').then(response => {
                     if (response.data) {
                         this.restaurantList = response.data.restaurant_items
                     }
@@ -143,7 +145,7 @@
             },
 
           getmenus(id){
-            this.axios.get('/api/api/menu/list/' + id).then(response => {
+            this.axios.get('/api/api/menu/' + id).then(response => {
               if (response.data) {
                 this.menuList = response.data.menus
               }
@@ -151,11 +153,11 @@
           },
             submitMenu() {
                 if (this.type == 'edit') {
-                    this.axios.put('/api/api/oder/update/' + this.id, {
+                    this.axios.put('/api/api/order/' + this.restaurant + '/' + this.id, {
                         user_id: localStorage.getItem('user_id'),
                         restaurant_id: this.restaurant,
                         menu_id: this.menu,
-                        status: this.status,
+                        status: this.status.toString(),
                         qty: this.QTY
                     }).then(response => {
                         alert(response.data)
@@ -165,7 +167,7 @@
                         this.status = ''
                     }).catch(e => alert(e))
                 } else {
-                    this.axios.post('/api/api/order/new', {
+                    this.axios.post('/api/api/order/' + this.restaurant, {
                         user_id: localStorage.getItem('user_id'),
                         restaurant_id: this.restaurant,
                         menu_id: this.menu,

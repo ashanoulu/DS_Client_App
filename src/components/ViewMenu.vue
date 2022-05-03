@@ -33,8 +33,8 @@
                       <td>{{menu.description}}</td>
                       <td>{{menu.price}}</td>
                       <td>{{menu.restaurant_name}}</td>
-                      <td><input type="button" @click="editData(menu.id)" value="Edit"></td>
-                      <td><input type="button" @click="deleteMenu(menu.id)" value="Delete"></td>
+                      <td><input type="button" @click="editData(menu.restaurant_id, menu.id)" value="Edit"></td>
+                      <td><input type="button" @click="deleteMenu(menu.restaurant_id, menu.id)" value="Delete"></td>
                     </tr>
                   </table>
                 </div>
@@ -60,15 +60,15 @@ export default {
   },
   methods: {
     getMenus(){
-      this.axios.get('/api/api/menu/list/3a9e5c1a-acdb-450c-a85d-dfcaface1976', {headers: { 'x-access-token' : localStorage.getItem('token')}})
+      this.axios.get('/api/api/menu/3a9e5c1a-acdb-450c-a85d-dfcaface1976', {headers: { 'x-access-token' : localStorage.getItem('token')}})
       .then(response => this.menus = response.data.menus)
       .catch(e => alert(e))
     },
-    editData(id){
-      this.$router.push({ path: '/AddMenu', query: { type: 'edit', id: id } })
+    editData(restaurant_id, id){
+      this.$router.push({ path: '/AddMenu', query: { type: 'edit', id: id, restaurant_id: restaurant_id } })
     },
-    deleteMenu(id) {
-      this.axios.delete('/api/api/menu/delete/' + id).then(response => {
+    deleteMenu(restaurant_id, id) {
+      this.axios.delete('/api/api/menu/' + restaurant_id + '/' + id).then(response => {
         if (response){
           alert('Deleted successfully')
           this.getMenus()
